@@ -2,12 +2,14 @@
 
 // import express library, common js modules
 const express = require('express');
+require('./services/passport');
+
 const app = express();   // create express application
 
-// route handler
-app.get('/', (req, res) => {
-    res.send({bye: 'buddy'});
-});
+require('./routes/authRoutes')(app);
+
+mongoose.connect(keys.mongoURI);
+
 
 const PORT = process.env.PORT || 5000;  // Listen for heroku port
 app.listen(PORT);
