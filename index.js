@@ -2,7 +2,10 @@
 
 // import express library, common js modules
 const express = require('express');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
 require('./services/passport');
+require('./models/User');
 
 const app = express();   // create express application
 
