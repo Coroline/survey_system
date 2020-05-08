@@ -30,6 +30,17 @@ app.use(passport.session());      // tell passport to use cookies to authenticat
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);        // they export a function - app
 
+if (process.env.NODE_ENV === 'production') {    // run in heroku
+    // express will serve up production assets like our main.js file, or main.css file
+    app.use(express.static('client/build'));
+
+    // express will serve up the index.html file if it doesn't recognize the route
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
+
 
 const PORT = process.env.PORT || 5000;  // Listen for heroku port
 app.listen(PORT);
